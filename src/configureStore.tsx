@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './rootReducer';
-import rootSaga from './rootSaga';
+import { sagas as ListPlacesSaga } from './components/listplaces/redux';
 
 
 export function configureStore () {
@@ -17,7 +17,7 @@ export function configureStore () {
     middleware,
   );
 
-  sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(ListPlacesSaga);
 
   return store;
 }

@@ -1,11 +1,11 @@
 import initialState from './initalState';
 import { 
-    FETCH_PLACES
+    FETCH_PLACES_SUCCESS
 } from './actions';
 
 const reducer = (state = initialState, payload, error ) => {
   switch (payload.type) {
-    case FETCH_PLACES :
+    case FETCH_PLACES_SUCCESS :
       return {
         ...state,
         placesList : payload.data
