@@ -57,12 +57,12 @@ function RecipeReviewCard(props) {
       />
       <CardActions disableSpacing>
         {
-          props.handleFavorites && <IconButton aria-label="add to favorites">
-            <FavoriteIcon onClick={props.handleFavorites} />
+          props.handleFavorites && <IconButton aria-label="add to favorites" onClick={props.handleFavorites} >
+            <FavoriteIcon />
           </IconButton>
         }
-        <IconButton aria-label="share">
-          <VisibilityIcon onClick={handleView} />
+        <IconButton aria-label="share" onClick={e => handleView()}>
+          <VisibilityIcon  />
         </IconButton>
       </CardActions>
     </Card>

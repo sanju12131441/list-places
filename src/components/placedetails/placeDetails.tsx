@@ -8,24 +8,28 @@ import Collage from '../collage/collage';
 import './placeDetails.css'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+interface PlaceDetails{
+   id:number
+}
 
 interface State {
-   details : any
+   details: any
 }
 
 interface Props {
- match : {
-    params:{
-       id:string
-    }
- }
+   placesList: []
+   match: {
+      params: {
+         id: string
+      }
+   }
 }
 
 class List extends Component<Props, State>{
    constructor(props) {
       super(props);
       this.state = {
-         details : {}
+         details: {}
       }
    }
 
@@ -34,19 +38,27 @@ class List extends Component<Props, State>{
    }
 
    fetchDetails = (id) => {
-      axios.get(endPoints.GET_PLACES_DETAILS.replace('id' , id)).then(res => {
-         console.log(res)
+      const selectedPlace = this.props.placesList.filter((places:PlaceDetails) => places.id === Number(id));
+
+      if(selectedPlace.length > 0){
+         console.log('ins',selectedPlace)
          this.setState({
-            details : res.data[0]
+            details: selectedPlace[0]
          })
-      },err => {
-         console.log(err)
-      })
+      } else {
+         axios.get(endPoints.GET_PLACES_DETAILS.replace('id', id)).then(res => {
+            this.setState({
+               details: res.data[0]
+            })
+         }, err => {
+            console.log(err)
+         })
+      }
    }
 
    render() {
       const { details } = this.state;
-      if(Object.keys(details).length === 0){
+      if (Object.keys(details).length === 0) {
          return (
             <div className='master-container'>
                <CircularProgress />
@@ -58,7 +70,7 @@ class List extends Component<Props, State>{
             <h2 className='title'>{details.name}</h2>
             <Grid container>
                <Grid item xs={12} sm={6} md={6}>
-                  <img className='coverPhoto' src={details.cover} />
+                  <img className='coverPhoto' alt={details.cover} src={details.cover} />
                </Grid>
                <Grid item xs={12} sm={6} md={6} className='alignLeft'>
                   <h5 className='margin-top-0px'>Location : {details.location}</h5>
@@ -80,7 +92,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchtoProps = dispatch => {
    return {
-     
+
    }
 }
 

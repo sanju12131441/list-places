@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router,Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import  PlacesComponent from './components/listplaces/listplaces';
 import  PlaceDetailsComponent from './components/placedetails/placeDetails';
 import FavouritePlacesComponent from './components/favouritePlaces/favouritePlaces';
