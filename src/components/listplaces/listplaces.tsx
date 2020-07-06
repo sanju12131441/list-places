@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { fetchPlaces } from './redux/actions';
+import { fetchPlaces, addFavouritePlaces } from './redux/actions';
 import { connect } from 'react-redux';
+import './listplaces.css'
 import Card from '../card/card';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 
 interface State {
 
@@ -10,7 +13,9 @@ interface State {
 
 interface Props {
    fetchPlacesAction: Function,
-   placesList: []
+   placesList: [],
+   addFavouritePlacesAction: Function,
+   history: any
 }
 
 class List extends Component<Props, State>{
@@ -25,19 +30,45 @@ class List extends Component<Props, State>{
       this.props.fetchPlacesAction();
    }
 
+   addFavouritePlacesHandler = (place) => {
+      this.props.addFavouritePlacesAction(place);
+      alert('Added to favourites')
+   }
+
+   viewFavouritePlacesHandler = () => {
+      this.props.history.push({
+         pathname: '/favouritePlaces'
+      });
+   }
+
    render() {
+      if (this.props.placesList.length === 0) {
+         return (
+            <div className='master-container'>
+               <CircularProgress />
+            </div>
+         )
+      }
       return (
-         <Grid container>
-            {
-               this.props.placesList.length > 0 && this.props.placesList.map(place => {
-                  return (
-                     <Grid item xs={12} sm={6} md={3}>
-                        <Card placeData={place}></Card>
-                     </Grid>
-                  )
-               })
-            }
-         </Grid>
+         <div>
+            <h2>CheckOut The List Of Places</h2>
+            <Button variant="contained" color="primary" onClick={this.viewFavouritePlacesHandler}>
+               View Favourites
+            </Button>
+            <div className='placesContainer'>
+               <Grid container spacing={4}>
+                  {
+                     this.props.placesList.length > 0 && this.props.placesList.map((place: any) => {
+                        return (
+                           <Grid item xs={12} sm={6} md={3} key={place.id}>
+                              <Card placeData={place} handleFavorites={e => this.addFavouritePlacesHandler(place)}></Card>
+                           </Grid>
+                        )
+                     })
+                  }
+               </Grid>
+            </div>
+         </div>
       )
    }
 }
@@ -49,6 +80,7 @@ const mapStateToProps = state => ({
 const mapDispatchtoProps = dispatch => {
    return {
       fetchPlacesAction: () => dispatch(fetchPlaces()),
+      addFavouritePlacesAction: (payload) => dispatch(addFavouritePlaces(payload)),
    }
 }
 

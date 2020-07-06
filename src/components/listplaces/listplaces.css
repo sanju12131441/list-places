@@ -1,0 +1,10 @@
+.master-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height : 40em
+}
+
+.placesContainer{
+    padding: 2rem
+}

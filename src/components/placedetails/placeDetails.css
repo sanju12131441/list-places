@@ -1,0 +1,33 @@
+.coverPhoto{
+    width: 100%;
+    height: 100%;
+}
+
+.alignLeft{
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: left;
+}
+
+.description{
+    text-align: justify;
+}
+
+.detailsContainer{
+    padding: 0em 2em;
+}
+
+.title{
+    text-align: left;
+}
+
+.margin-top-0px{
+    margin-top: 0px !important;
+}
+
+.master-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height : 40em
+}

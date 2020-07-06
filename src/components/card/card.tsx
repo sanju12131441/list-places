@@ -1,24 +1,19 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
+      maxWidth: 400,
     },
     media: {
       height: 0,
@@ -40,34 +35,38 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function RecipeReviewCard(placeData) {
-    console.log(placeData)
+function RecipeReviewCard(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const handleView = () => {
+    props.history.push({
+      pathname: `/places/${props?.placeData?.id}`
+    });
+  }
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={placeData.placeData.name}
-        subheader={placeData.placeData.location}
+        title={props.placeData.name}
+        subheader={props.placeData.location}
       />
       <CardMedia
         className={classes.media}
-        image={placeData.placeData.cover}
-        title={placeData.placeData.name}
+        image={props.placeData.cover}
+        title={props.placeData.name}
       />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
+        {
+          props.handleFavorites && <IconButton aria-label="add to favorites">
+            <FavoriteIcon onClick={props.handleFavorites} />
+          </IconButton>
+        }
         <IconButton aria-label="share">
-          <ShareIcon />
+          <VisibilityIcon onClick={handleView} />
         </IconButton>
       </CardActions>
     </Card>
   );
 }
+
+export default withRouter(RecipeReviewCard)

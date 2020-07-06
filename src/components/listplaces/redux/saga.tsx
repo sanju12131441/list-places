@@ -12,7 +12,6 @@ function fetchPlacesApiCall() {
 function* fetchPlacesGenerator() {
   try {
     const response = yield call(fetchPlacesApiCall);
-    console.log(response)
     if(response.status === 200){
       const data = response.data.places;
       yield put({type : FETCH_PLACES_SUCCESS , data})

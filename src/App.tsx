@@ -1,12 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import List from './components/listplaces/listplaces'
+import MainRouter from './Router';
+import Header from './components/header/header'
 
 function App() {
   return (
     <div className="App">
-     <List></List>
+      <Header></Header>
+     <MainRouter></MainRouter>
     </div>
   );
 }
